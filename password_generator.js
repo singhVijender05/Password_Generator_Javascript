@@ -18,19 +18,6 @@ class Password {
     getPassword = () => {
         return this.Password
     }
-    ResetPassword = (password) => {
-        //Implement later
-        //     let response=prompt('Enter last password you remember')
-        //     if(response!=this.password){
-        //         alert('You cannot reset password,please enter correct password')
-        //     }
-        //     else{
-        //     this.Password=Password
-        //     alert(`Password has been successully reset for ${this.username}`)
-        // }
-        this.Password = password;
-        console.log(`Password has been successully reset for ${this.username}`)
-    }
     generateWeakPassword() {
         const CharacterSets = [Password.lowerCaseChars, Password.upperCaseChars, Password.digitChars, Password.specialChars]
         //use only letters or numbers whichever is your choice to generate weak passwords
@@ -44,8 +31,34 @@ class Password {
 
         return password
     }
+    generateStrongPassword(length){
+        const CharacterSets = [Password.lowerCaseChars, Password.upperCaseChars, Password.digitChars]
+        let password=''
+        for(let i=0;i<CharacterSets.length;i++){
+          password+=CharacterSets[i][this.getRandom(0,CharacterSets[i].length)]
+        }
+        for(let i=0;i<length-CharacterSets.length;i++){
+            let set_index=this.getRandom(0,CharacterSets.length)
+            password+=CharacterSets[set_index][this.getRandom(0,CharacterSets[set_index].length)]
+        }
+        return password
+    }
+    ResetPassword = (password) => {
+        //Implement later
+        //     let response=prompt('Enter last password you remember')
+        //     if(response!=this.password){
+        //         alert('You cannot reset password,please enter correct password')
+        //     }
+        //     else{
+        //     this.Password=Password
+        //     alert(`Password has been successully reset for ${this.username}`)
+        // }
+        this.Password = password;
+        console.log(`Password has been successully reset for ${this.username}`)
+    }
 
 }
 
 User1 = new Password('Rahul', '12345678')
 console.log(User1.generateWeakPassword())
+console.log(User1.generateStrongPassword(10))
